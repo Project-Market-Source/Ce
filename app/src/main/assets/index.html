@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Cinemana Web SPA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- App Container -->
+    <div id="app-shell">
+        
+        <!-- Top App Bar -->
+        <header id="top-bar">
+            <div class="logo">
+                <span id="logo-c">CINEMANA</span>
+                <span id="logo-sub">CDN-Pro</span>
+            </div>
+            <div class="network-badge" id="net-badge">
+                <span id="net-dot"></span>
+                <span id="net-text">Safe Simulator</span>
+            </div>
+        </header>
+
+        <!-- Dynamic Main Scrollable Feed -->
+        <main id="main-content">
+            
+            <!-- Home Screen -->
+            <section id="screen-home" class="app-screen active">
+                <!-- Highlight Carousel Banner -->
+                <div id="hero-carousel">
+                    <div id="carousel-track"></div>
+                    <div class="carousel-nav">
+                        <span class="carousel-dot active"></span>
+                        <span class="carousel-dot"></span>
+                        <span class="carousel-dot"></span>
+                    </div>
+                </div>
+
+                <!-- Custom Row Categories -->
+                <div class="movie-row">
+                    <div class="row-header">
+                        <h2>Featured & Trending</h2>
+                        <span class="row-badge">HOT</span>
+                    </div>
+                    <div class="scrolling-row" id="row-trending"></div>
+                </div>
+
+                <div class="movie-row">
+                    <div class="row-header">
+                        <h2>Earthlink Premium Quality</h2>
+                        <span class="row-badge">1080P</span>
+                    </div>
+                    <div class="scrolling-row" id="row-premium"></div>
+                </div>
+
+                <div class="movie-row">
+                    <div class="row-header">
+                        <h2>Recently Added Shows</h2>
+                    </div>
+                    <div class="scrolling-row" id="row-shows"></div>
+                </div>
+            </section>
+
+            <!-- Search Screen -->
+            <section id="screen-search" class="app-screen">
+                <div class="search-sticky-container">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-box" placeholder="Search movies, series, genres..." autocomplete="off">
+                        <button id="search-clear-btn" class="hidden">×</button>
+                    </div>
+                </div>
+                
+                <h3 class="search-results-heading">Search Results</h3>
+                <div id="search-results-grid" class="movie-grid"></div>
+                <div id="search-empty-state" class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <h4>No results found</h4>
+                    <p>Try searching for popular titles like "Tears", "The Cosmos", or category terms.</p>
+                </div>
+            </section>
+
+            <!-- Categories Screen -->
+            <section id="screen-categories" class="app-screen">
+                <!-- Header block -->
+                <div class="screen-header">
+                    <h2>Explore Categories</h2>
+                    <p>Find your next movie via genre or specific ISP relays</p>
+                </div>
+
+                <!-- Grid list of categories -->
+                <div id="categories-grid" class="categories-grid"></div>
+
+                <!-- Category details filtered movie list -->
+                <div id="category-filter-view" class="hidden">
+                    <div class="category-filter-header">
+                        <button id="cat-back-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg> Back
+                        </button>
+                        <h2 id="cat-filter-title">Category Name</h2>
+                    </div>
+                    <div id="category-movies-grid" class="movie-grid"></div>
+                </div>
+            </section>
+
+            <!-- Watchlist Screen -->
+            <section id="screen-watchlist" class="app-screen">
+                <div class="screen-header">
+                    <h2>My Watchlist</h2>
+                    <p>Your saved favorites stored securely offline</p>
+                </div>
+
+                <div id="watchlist-grid" class="movie-grid"></div>
+
+                <div id="watchlist-empty-state" class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <h4>Your watchlist is empty</h4>
+                    <p>Explore movies and tap the Watchlist button to save selections here.</p>
+                </div>
+            </section>
+
+            <!-- Settings Screen -->
+            <section id="screen-settings" class="app-screen">
+                <div class="screen-header">
+                    <h2>Connection Settings</h2>
+                    <p>Configure local network Earthlink CDN servers</p>
+                </div>
+
+                <div class="card settings-card">
+                    <h3>CDN Base Configuration</h3>
+                    <p class="subtitle">Enter the local service address of your ISP/Earthlink network stream server. Leave blank or use default for simulated mode.</p>
+                    
+                    <div class="settings-form">
+                        <label for="cdn-url-input">CDN Server IP / URL</label>
+                        <input type="text" id="cdn-url-input" placeholder="e.g. 10.152.4.9, http://cdn.earthlink.iq/">
+                        <div class="settings-actions">
+                            <button id="settings-save-btn" class="btn btn-primary">Connect & Save</button>
+                            <button id="settings-reset-btn" class="btn btn-secondary">Use Safe Simulator</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card settings-card info-card">
+                    <h3>Diagnostic Diagnostics</h3>
+                    <div class="diagnostic-row">
+                        <span class="label">Status</span>
+                        <span id="diag-status" class="val text-success">Active Sim</span>
+                    </div>
+                    <div class="diagnostic-row">
+                        <span class="label">Current Server Endpoint</span>
+                        <span id="diag-url" class="val">https://mock.cinemana.local/</span>
+                    </div>
+                    <div class="diagnostic-row">
+                        <span class="label">Watchlist Count</span>
+                        <span id="diag-watchlist" class="val">0</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Unified Navigation Bar -->
+        <nav id="bottom-navbar">
+            <button class="nav-item active" data-tab="home" id="nav-home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" data-tab="search" id="nav-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <span>Search</span>
+            </button>
+            <button class="nav-item" data-tab="categories" id="nav-categories">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" x1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Categories</span>
+            </button>
+            <button class="nav-item" data-tab="watchlist" id="nav-watchlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span>Watchlist</span>
+            </button>
+            <button class="nav-item" data-tab="settings" id="nav-settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Setup</span>
+            </button>
+        </nav>
+
+        <!-- Sliding Details Pane -->
+        <div id="movie-detail-pane" class="hidden">
+            <div class="detail-backdrop-scrim"></div>
+            <div class="detail-sheet">
+                <div class="detail-banner" id="detail-banner-img">
+                    <button id="detail-back-btn" class="round-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <div class="banner-gradient"></div>
+                </div>
+                
+                <div class="detail-body">
+                    <div class="detail-meta">
+                        <span id="detail-year">2024</span>
+                        <span id="detail-duration" class="meta-label">2h 10m</span>
+                        <div class="detail-rating">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span id="detail-score">8.5</span>
+                        </div>
+                    </div>
+
+                    <h1 id="detail-title">Movie Title</h1>
+                    
+                    <div id="detail-genres" class="genre-container"></div>
+
+                    <p id="detail-synopsis">Synopsis content text goes here.</p>
+
+                    <div class="detail-actions">
+                        <button id="detail-play-btn" class="btn btn-primary btn-big">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> PLAY VIDEO
+                        </button>
+                        <button id="detail-wl-dtl-btn" class="wl-btn">
+                            <svg id="wl-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <span id="wl-btn-label">To Watchlist</span>
+                        </button>
+                    </div>
+
+                    <!-- TV Series / Episodes selection section -->
+                    <div id="detail-episodes-section" class="hidden">
+                        <h3>Select Episode</h3>
+                        <div id="episode-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Immersive Cinema Video Player -->
+        <div id="custom-player" class="hidden">
+            <!-- Dynamic ambient background light -->
+            <div id="player-glow-canvas"></div>
+            
+            <header class="player-header">
+                <button id="player-close-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg> Back
+                </button>
+                <div class="player-title">
+                    <h3 id="player-movie-title">Tokyo Driftway</h3>
+                    <p id="player-episode-title" class="hidden">Episode Name</p>
+                </div>
+                <!-- Network signal strength pill -->
+                <div class="player-net-info">CDN Ready</div>
+            </header>
+
+            <div class="video-container">
+                <video id="html5-video" preload="auto" playsinline></video>
+                <div class="video-loader" id="player-loader">
+                    <div class="spinner"></div>
+                    <span>Streaming link from CDN...</span>
+                </div>
+            </div>
+
+            <!-- Immersive Controller Overlay -->
+            <div class="player-controls">
+                
+                <!-- Timeline Scrub bar -->
+                <div class="timeline-row">
+                    <span id="player-time-current">00:00</span>
+                    <div class="timeline-track" id="timeline-track">
+                        <div class="timeline-progress" id="timeline-progress"></div>
+                        <div class="timeline-handle" id="timeline-handle"></div>
+                    </div>
+                    <span id="player-time-duration">00:00</span>
+                </div>
+
+                <div class="controls-row">
+                    <!-- Left action cluster -->
+                    <div class="control-group">
+                        <button id="player-play-pause-btn" class="ctrl-btn max-btn">
+                            <svg id="play-svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <svg id="pause-svg" class="hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                        </button>
+                        
+                        <button id="player-rewind-btn" class="ctrl-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2A10 10 0 0 0 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10H12z"/><polygon points="12 12 7 9 7 15" fill="currentColor"/></svg>
+                        </button>
+
+                        <button id="player-forward-btn" class="ctrl-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 18 2 12h10z"/><polygon points="12 12 17 9 17 15" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Quality selector dropdown custom style -->
+                    <div class="control-group">
+                        <div class="quality-selector-wrapper">
+                            <button id="player-quality-btn">1080p</button>
+                            <div id="quality-dropdown" class="hidden">
+                                <button data-quality="1080p" class="active">1080p Full-HD</button>
+                                <button data-quality="720p">720p HD</button>
+                                <button data-quality="360p">360p Mobile-Data</button>
+                            </div>
+                        </div>
+
+                        <button id="player-fullscreen-btn" class="ctrl-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script imports -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "Cinemana",
+  "description": "A modern, high-performance streaming application inspired by Cinemana, featuring a premium dark theme, localized CDN support, responsive collections, and interactive custom video playback controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
