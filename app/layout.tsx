@@ -10,15 +10,24 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Cinemana - بث الأفلام والمسلسلات",
   description: "تطبيق بث الأفلام والمسلسلات عالي الجودة",
+  manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
+    apple: "/icons/icon-192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Cinemana",
   },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0F1014",
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#e50914",
 };
 
 export default function RootLayout({
