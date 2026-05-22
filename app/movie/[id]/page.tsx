@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Star, Play } from "lucide-react";
@@ -44,8 +44,13 @@ export default function MovieDetailPage() {
   const movie = getMovieById(movieId);
   const { isInWatchlist, toggleWatchlist } = useStore();
   
+  const [mounted, setMounted] = useState(false);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!movie) {
     return (
@@ -55,7 +60,7 @@ export default function MovieDetailPage() {
     );
   }
 
-  const isSaved = isInWatchlist(movie.id);
+  const isSaved = mounted && isInWatchlist(movie.id);
   const currentStreamUrls = selectedEpisode?.streamUrls || movie.streamUrls;
 
   const handlePlayMovie = () => {

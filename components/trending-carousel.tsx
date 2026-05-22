@@ -13,7 +13,13 @@ interface TrendingCarouselProps {
 
 export function TrendingCarousel({ movies }: TrendingCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const { isInWatchlist, toggleWatchlist } = useStore();
+  
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Auto-scroll effect
   useEffect(() => {
@@ -29,7 +35,7 @@ export function TrendingCarousel({ movies }: TrendingCarouselProps) {
   if (movies.length === 0) return null;
   
   const movie = movies[activeIndex];
-  const isSaved = isInWatchlist(movie.id);
+  const isSaved = mounted && isInWatchlist(movie.id);
   
   return (
     <section className="px-4 py-1.5">

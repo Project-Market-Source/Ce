@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AlertCircle, RefreshCw } from "lucide-react";
 
 interface MoviePosterProps {
@@ -19,8 +19,13 @@ export function MoviePoster({
   className = "",
   priority = false,
 }: MoviePosterProps) {
+  const [mounted, setMounted] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (isError) {
     return (
@@ -35,9 +40,11 @@ export function MoviePoster({
     );
   }
 
+  const showLoading = mounted && isLoading;
+
   return (
     <div className={`relative ${className}`}>
-      {isLoading && (
+      {showLoading && (
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] flex flex-col items-center justify-center z-10">
           <RefreshCw className="w-9 h-9 text-[var(--primary)] opacity-50 animate-spin" />
         </div>
@@ -46,7 +53,7 @@ export function MoviePoster({
         src={src}
         alt={alt}
         fill={fill}
-        className={`object-cover ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+        className={`object-cover ${showLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setIsLoading(false);
